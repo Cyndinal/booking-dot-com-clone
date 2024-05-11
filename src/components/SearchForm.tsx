@@ -73,10 +73,10 @@ function onSubmit(values: z.infer<typeof formSchema>) {
     // })
 }
   return (
-  <div className={'md:grid'}>
+  <div className={'md:grid relative'}>
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className={"md:grid grid-cols-2 items-center justify-center"}>
+            <div className={"md:grid grid-cols-2 items-center justify-center md:ml-36"}>
                 <div className={'md:flex relative items-center justify-center'}>
                     <FormField
                         control={form.control}
@@ -85,7 +85,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                             <FormItem>
                                 <FormMessage/>
                                 <FormLabel>
-                                    <div>
+                                    <div className={'text-white'}>
                                         <BedDoubleIcon/>
                                     </div>
                                 </FormLabel>
@@ -126,7 +126,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                             <FormItem>
                                 <FormMessage/>
                                 <FormLabel>
-                                    <div className={''}>
+                                    <div className={'text-white'}>
                                         Adult
                                     </div>
                                 </FormLabel>
@@ -157,61 +157,60 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                     />
                 </div>
 
-                <div className={'mx-auto justify-center ml-36 items-center w-full'}>
-                    <FormField
-                        control={form.control}
-                        name={'date'}
-                        render={({field}) => (
-                            <FormItem>
-                                <FormMessage/>
-                                <FormLabel>
-                                    <div className={''}>Calendar</div>
-                                </FormLabel>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button
-                                            id="date"
-                                            variant={"outline"}
-                                            className={cn(
-                                                "",
-                                                !date && "text-muted-foreground"
-                                            )}
-                                        >
-                                            <CalendarIcon className="mr-2 h-4 w-4"/>
-                                            {date?.from ? (
-                                                date.to ? (
-                                                    <>
-                                                        {format(date.from, "LLL dd, y")} -{" "}
-                                                        {format(date.to, "LLL dd, y")}
-                                                    </>
-                                                ) : (
-                                                    format(date.from, "LLL dd, y")
-                                                )
-                                            ) : (
-                                                <span>Pick a date</span>
-                                            )}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0" align="start">
-                                        <Calendar
-                                            initialFocus
-                                            mode="range"
-                                            defaultMonth={date?.from}
-                                            selected={date}
-                                            onSelect={setDate}
-                                            disabled={(date) => date < new Date() || date < new Date("2024-05-05")}
-                                            numberOfMonths={2}
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                {/*<Button type="submit" className={'items-center mt-5 bg-pink-300'}>Submit</Button>*/}
+                {/*<div className={'justify-center items-center mx-auto'}>*/}
+                {/*    <FormField*/}
+                {/*        control={form.control}*/}
+                {/*        name={'date'}*/}
+                {/*        render={({field}) => (*/}
+                {/*            <FormItem>*/}
+                {/*                <FormMessage/>*/}
+                {/*                <FormLabel>*/}
+                {/*                    <div className={'text-white mx-auto mt-5'}>Calendar</div>*/}
+                {/*                </FormLabel>*/}
+                {/*                <Popover>*/}
+                {/*                    <PopoverTrigger asChild>*/}
+                {/*                        <Button*/}
+                {/*                            id="date"*/}
+                {/*                            variant={"outline"}*/}
+                {/*                            className={cn(*/}
+                {/*                                "",*/}
+                {/*                                !date && "text-muted-foreground"*/}
+                {/*                            )}*/}
+                {/*                        >*/}
+                {/*                            <CalendarIcon className="mr-2 h-4 w-4"/>*/}
+                {/*                            {date?.from ? (*/}
+                {/*                                date.to ? (*/}
+                {/*                                    <>*/}
+                {/*                                        {format(date.from, "LLL dd, y")} -{" "}*/}
+                {/*                                        {format(date.to, "LLL dd, y")}*/}
+                {/*                                    </>*/}
+                {/*                                ) : (*/}
+                {/*                                    format(date.from, "LLL dd, y")*/}
+                {/*                                )*/}
+                {/*                            ) : (*/}
+                {/*                                <span>Pick a date</span>*/}
+                {/*                            )}*/}
+                {/*                        </Button>*/}
+                {/*                    </PopoverTrigger>*/}
+                {/*                    <PopoverContent className="w-auto p-0" align="start">*/}
+                {/*                        <Calendar*/}
+                {/*                            initialFocus*/}
+                {/*                            mode="range"*/}
+                {/*                            defaultMonth={date?.from}*/}
+                {/*                            selected={date}*/}
+                {/*                            onSelect={setDate}*/}
+                {/*                            disabled={(date) => date < new Date() || date < new Date("2024-05-05")}*/}
+                {/*                            numberOfMonths={2}*/}
+                {/*                        />*/}
+                {/*                    </PopoverContent>*/}
+                {/*                </Popover>*/}
+                {/*            </FormItem>*/}
+                {/*        )}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
-            {/*       <div  className={'absolute'}></div>*/}
+            <Button type="submit" className={'flex justify-center px-10 items-center mx-auto bg-blue-400'}>Submit</Button>
+
         </form>
     </Form>
   </div>
@@ -219,67 +218,3 @@ function onSubmit(values: z.infer<typeof formSchema>) {
 }
 
 export default ProfileForm
-
-
-//
-//
-// const formSchema = z.object({
-//     location:z.string().min(2).max(50),
-//     date:z.object({
-//         from:z.date(),
-//         to:z.date()
-//     }),
-//     adult:z.string().min(12,{message:"Max 12 Occupancy"}),
-//     children:z.string().min(2).max(12,{message:"Occupant should be 12 in number"}),
-//     room:z.string().min(1,{message:"Please, select only a room"})
-// })
-//
-// const SearchForm = ()=>{
-//     const router = useRouter()
-//
-//     const form = useForm<z.infer<typeof formSchema>>({
-//         resolver:zodResolver(formSchema),
-//         defaultValues:{
-//             location:'',
-//             adult:"1",
-//             date:{
-//                 from:undefined,
-//                 to:undefined
-//             },
-//             children: "1",
-//             room:"1"
-//         }
-//     })
-//    function onSubmit(values:z.infer<typeof formSchema>){}
-//     return(
-//        <Form {...form}>
-//            <form onSubmit={form.handleSubmit(onSubmit)}>
-//                <div>
-//                    <FormField
-//                        control={form.control} render={({field})=>(
-//                        <FormItem>
-//                            <FormLabel>
-//                                Location
-//                                <BedDoubleIcon/>
-//
-//                                  <FormControl>
-//                                <Input placeholder={"London, UK"} {...field} />
-//                                  </FormControl>
-//                            <FormDescription>
-//                           This is your public display name.
-//                             </FormDescription>
-//                            </FormLabel>
-//
-//                            <FormMessage/>
-//
-//
-//                        </FormItem>
-//                    )} name={'location'}/>
-//                </div>
-//            </form>
-//
-//        </Form>
-//     )
-// }
-//
-// export default SearchForm
